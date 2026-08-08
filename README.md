@@ -16,6 +16,11 @@ A more capable model does not fix idempotency, determinism, crash recovery, auth
 - **[llm-gateway](https://github.com/prathamesh-git9/llm-gateway)** — Self-hostable OpenAI-compatible inference gateway: policy routing with fallback chains, circuit breakers, semantic caching, hard per-tenant budgets, Prometheus metrics.
 - **[agent-mesh](https://github.com/prathamesh-git9/agent-mesh)** — Event-driven multi-agent backend: consumer groups, at-least-once delivery with idempotency, dead-letter recovery, and fan-in that degrades on partial failure instead of hanging.
 - **[answer-engine](https://github.com/prathamesh-git9/answer-engine)** — Production RAG and tool-calling backend. Adaptive retrieval routing, hybrid BM25 + vector fused with RRF, and grounding verification that reports whether the answer is actually supported by its citations.
+- **[mcp-servers](https://github.com/prathamesh-git9/mcp-servers)** — Six independently runnable MCP servers on the 2.0 SDK: grounded CV, repo intelligence, web research, ATS jobs, outcome ledger, coding workflows. Typed inputs and outputs, per-server limits, and a socket-restricted test suite so nothing quietly reaches the network.
+
+**Grounding and evaluation**
+
+- **[digital-twin](https://github.com/prathamesh-git9/digital-twin)** — A source-grounded twin that answers only from a structured CV corpus and live repo metadata, behind an authority gate: background research can *propose* visitor context, but no code path admits it until the visitor confirms. Retrieval measured, not asserted — recall@8 12/24 → 24/24, and a claim-verification pass took precision 0.556 → 0.941 by deleting unsupported claims rather than softening them.
 
 **Assurance**
 
