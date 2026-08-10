@@ -2,6 +2,10 @@ I build agent infrastructure — the correctness and recovery layer underneath t
 
 A more capable model does not fix idempotency, determinism, crash recovery, authority boundaries, or honest uncertainty. Those are information and atomicity problems, not reasoning ones. When a tool call times out, the local journal cannot distinguish *the request never arrived* from *the request committed and the acknowledgement was lost* — no amount of intelligence recovers that bit. So the work below shares one design signature: when the truth is not knowable, the system records an explicit unknown and stops at a human gate instead of guessing well.
 
+### Research: trustworthy AI for software engineering
+
+- **[secure-instruction-placement](https://github.com/prathamesh-git9/secure-instruction-placement)** - A reproducible study of whether placing identical secure-coding guidance in a task, repository context, both, or neither changes AI coding-agent outcomes. The public artifact includes a versioned protocol, literature/novelty log, benchmark-audit tools, provenance-recording runner, 26 tests with CI, and a four-condition pilot release with generated sources, machine-readable records, hashes, and executable functional/security outcomes. Status is stated precisely: the pilot is non-confirmatory and no placement effect is claimed yet.
+
 ### Selected work
 
 **Correctness under retries and crashes**
