@@ -4,7 +4,7 @@ A more capable model does not fix idempotency, determinism, crash recovery, auth
 
 ### Research: trustworthy AI for software engineering
 
-- **[secure-instruction-placement](https://github.com/prathamesh-git9/secure-instruction-placement)** - A reproducible study of whether placing identical secure-coding guidance in a task, repository context, both, or neither changes AI coding-agent outcomes. The public artifact includes a versioned protocol, validated 11-task subset across six weakness families, benchmark-audit tools, provenance-recording runner, 35 tests with CI, and three public releases. Its latest pilot contains 12 direct file-editing runs across three security tasks: all passed functional tests, while the CodeInjectionEval control failed two security tests and all reminder conditions passed. The pilot is explicitly non-confirmatory and no placement effect is claimed yet.
+- **[secure-instruction-placement](https://github.com/prathamesh-git9/secure-instruction-placement)** - A reproducible study of whether placing identical secure-coding guidance in a task, repository context, both, or neither changes AI coding-agent outcomes. Four public releases now cover a validated 11-task audit, a 12-run writable-agent pilot, and a protected confirmatory design. Three pilot tasks are permanently separated from eight untouched holdout tasks; a deterministic 96-run schedule and task-clustered factorial analysis are committed before results. The artifact has 45 tests and CI. Pilot observations remain explicitly non-confirmatory.
 
 ### Selected work
 
