@@ -1,46 +1,49 @@
-I build agent infrastructure — the correctness and recovery layer underneath tool-calling AI systems.
+# Prathamesh Kalamkar
 
-A more capable model does not fix idempotency, determinism, crash recovery, authority boundaries, or honest uncertainty. Those are information and atomicity problems, not reasoning ones. When a tool call times out, the local journal cannot distinguish *the request never arrived* from *the request committed and the acknowledgement was lost* — no amount of intelligence recovers that bit. So the work below shares one design signature: when the truth is not knowable, the system records an explicit unknown and stops at a human gate instead of guessing well.
+**Trustworthy AI for software engineering · software security · reliable agent systems**
 
-### Research: trustworthy AI for software engineering
+I am a software engineer in Dublin building and studying AI systems that modify code or take external actions. My work asks a practical research question: **what evidence is strong enough to trust an agent's output?** I answer it with executable ground truth, failure-oriented experiments, explicit uncertainty, and reproducible artifacts.
 
-- **[secure-instruction-placement](https://github.com/prathamesh-git9/secure-instruction-placement)** - A reproducible study of whether placing identical secure-coding guidance in a task, repository context, both, or neither changes AI coding-agent outcomes. Six public releases now cover a validated 11-task audit, a 12-run writable-agent pilot, a protected confirmatory design, and a hash-checked development oracle audit that detected 3/3 targeted unsafe regressions without breaking functionality. Three pilot tasks are permanently separated from eight untouched holdout tasks; a deterministic 96-run schedule and task-clustered factorial analysis are committed before results. The artifact has 48 tests and green CI on Python 3.11/3.12. Pilot observations remain explicitly non-confirmatory.
+[Research portfolio](https://prathamesh-git9.github.io/portfolio-website/) · [LinkedIn](https://www.linkedin.com/in/prathamesh-kalamkar/) · [Email](mailto:prathemesh7744@gmail.com)
 
-### Selected work
+## Research artifacts
 
-**Correctness under retries and crashes**
+### [Security Oracle Discrimination Audit](https://github.com/prathamesh-git9/security-oracle-discrimination)
 
-- **[effect-broker](https://github.com/prathamesh-git9/effect-broker)** — A correctness boundary for side-effecting agent tools: one downstream idempotency key across every retry, authoritative reconciliation, and an honest `outcome_unknown` instead of a fake exactly-once guarantee.
-- **[agent-runtime](https://github.com/prathamesh-git9/agent-runtime)** — Durable, resumable execution for tool-calling loops. An event-sourced journal and deterministic replay make crash recovery something that never re-fires a side effect.
-- **[effect-browser](https://github.com/prathamesh-git9/effect-browser)** — Crash-safe control plane for AI-driven browser operations. Navigation runs freely; external commits require exact action-bound authority.
-- **[promise-ledger](https://github.com/prathamesh-git9/promise-ledger)** — Versioned, evidence-backed system of record for commitments. Models propose with sources, humans activate, supersession is explicit rather than inferred.
+An execution-grounded audit of whether security checkers respond to program behaviour or merely to surface form.
 
-**Serving and coordination**
+- **Controlled study:** 5 oracles × 96 Python implementations across 8 weakness classes; all labels earned by running exploit witnesses.
+- **Production study:** 140 real CVE fixes from 65 projects. The evaluated tools produced unchanged verdicts across **92.9%–98.6%** of fixes.
+- **Cross-study result:** synthetic and production detection rates correlate at **Spearman ρ = 0.782**.
+- Reproducible CLI, fixed protocol, raw results, bootstrap intervals, production manifest, and green CI.
 
-- **[llm-gateway](https://github.com/prathamesh-git9/llm-gateway)** — Self-hostable OpenAI-compatible inference gateway: policy routing with fallback chains, circuit breakers, semantic caching, hard per-tenant budgets, Prometheus metrics.
-- **[agent-mesh](https://github.com/prathamesh-git9/agent-mesh)** — Event-driven multi-agent backend: consumer groups, at-least-once delivery with idempotency, dead-letter recovery, and fan-in that degrades on partial failure instead of hanging.
-- **[answer-engine](https://github.com/prathamesh-git9/answer-engine)** — Production RAG and tool-calling backend. Adaptive retrieval routing, hybrid BM25 + vector fused with RRF, and grounding verification that reports whether the answer is actually supported by its citations.
-- **[mcp-servers](https://github.com/prathamesh-git9/mcp-servers)** — Six independently runnable MCP servers on the 2.0 SDK: grounded CV, repo intelligence, web research, ATS jobs, outcome ledger, coding workflows. Typed inputs and outputs, per-server limits, and a socket-restricted test suite so nothing quietly reaches the network.
+Status: **public research artifact and manuscript; not peer-reviewed**.
 
-**Grounding and evaluation**
+### [Secure Instruction Placement](https://github.com/prathamesh-git9/secure-instruction-placement)
 
-- **[digital-twin](https://github.com/prathamesh-git9/digital-twin)** — A source-grounded twin that answers only from a structured CV corpus and live repo metadata, behind an authority gate: background research can *propose* visitor context, but no code path admits it until the visitor confirms. Retrieval measured, not asserted — recall@8 12/24 → 24/24, and a claim-verification pass took precision 0.556 → 0.941 by deleting unsupported claims rather than softening them.
+A controlled study of whether identical secure-coding guidance works differently in task prompts, repository instructions, both, or neither. The repository separates pilot tasks from a protected holdout, records a deterministic run schedule, and pre-specifies task-clustered analysis.
 
-**Assurance**
+Status: **work in progress; pilot evidence is non-confirmatory**.
 
-- **[agent-redteam](https://github.com/prathamesh-git9/agent-redteam)** — Adversarial testing and runtime guardrails for LLM agents. A layered oracle scores attack success from planted evidence rather than eyeballing model output, and rolls it into CVSS-style risk you can gate CI on.
-- **[reachable](https://github.com/prathamesh-git9/reachable)** — CVE triage by static call-graph reachability, emitting OpenVEX. Three verdicts, never two: uncertainty degrades to `UNKNOWN`, never to not-reachable.
-- **[trustdesk](https://github.com/prathamesh-git9/trustdesk)** — Grounded drafting for vendor security questionnaires: hybrid retrieval behind a calibrated relevance floor, mandatory human review, append-only audit trail.
+## Selected systems
 
-### How I build
+| Project | Problem | Evidence |
+| --- | --- | --- |
+| [PatchPilot](https://github.com/prathamesh-git9/patchpilot) | Provider-authored OpenAPI changes should migrate affected customer code instead of becoming unread changelog entries. Built in response to YC's [Self-Maintaining APIs](https://www.ycombinator.com/rfs) request. | Deterministic JS/TS/Python patches, signed migration manifests, GitHub App delivery, crash/replay handling, 12 releases, green CI. |
+| [Effect Broker](https://github.com/prathamesh-git9/effect-broker) | A timed-out agent action may have committed even when its acknowledgement was lost. | Stable idempotency contracts, authoritative reconciliation, `outcome_unknown`, and a process-kill crash matrix on SQLite and PostgreSQL. |
+| [Agent Redteam](https://github.com/prathamesh-git9/agent-redteam) | Agent-security claims need outcome evidence, not subjective transcript review. | Executable attack oracles, clean-twin counterfactual replay, guardrail-effectiveness measurement, SARIF, and regression baselines. |
+| [Agentic Digital Twin](https://github.com/prathamesh-git9/agentic-digital-twin) | A public AI profile must not turn web search or model fluency into invented personal claims. | Source-grounded answers, a pre-prompt authority gate, measured retrieval and claim verification, and 191 offline tests. |
 
-- **Prove the failure, not the happy path.** `effect-broker` ships a crash matrix that kills a worker with a real `os._exit(137)` after the target commits but before the receipt is written — the exact window that causes double-charges — then asserts the *target-side* effect count after recovery.
-- **Durable before dispatch.** Append the intent to a journal, then act. Recovery reads the log, never process memory, and compare-and-swap transitions keep two workers from advancing the same record.
-- **Degrade to unknown, not to a guess.** Every one of these systems has a verdict for *cannot be determined*, and it is never the optimistic one.
-- **Keep a human on the authority boundary.** Irreversible or external effects pass through an explicit gate with recorded scope, not a confidence threshold.
-- **Default to offline and deterministic.** Test suites and demos run with no API keys, so what is under test is the system's behaviour rather than the provider's mood.
-- **Ship it like a service.** Typed Python 3.11+, FastAPI / CLI / MCP surfaces, Docker Compose, migrations where there is schema, and CI green across a Python version matrix on every repo above. All MIT.
+## Design principles
 
-### Elsewhere
+- **Earn labels through execution.** If a claim can be checked by running an exploit, crash, or contract test, run it.
+- **Model ambiguity explicitly.** `UNKNOWN` is a valid result; silence or timeout is not evidence of safety.
+- **Make authority structural.** External effects cross explicit, recorded approval boundaries.
+- **Publish the audit trail.** Protocols, raw records, limitations, hashes, and negative results belong beside the code.
+- **Keep claims narrower than evidence.** Artifacts are not publications, pilots are not confirmatory studies, and passing tests are not user adoption.
 
-Dublin, Ireland · [prathemesh8459@gmail.com](mailto:prathemesh8459@gmail.com) · [@pkalamkar_](https://x.com/pkalamkar_)
+## Background and current direction
+
+I hold an MSc in Cybersecurity from Dublin Business School (2025) and a bachelor's degree in Computer Science from Savitribai Phule Pune University (2024). I am preparing for PhD applications focused on trustworthy AI for software engineering, especially evaluation integrity, secure code generation, and dependable agent actions.
+
+I welcome technically specific feedback, independent reproductions, and research collaboration. The best starting point is the [oracle audit](https://github.com/prathamesh-git9/security-oracle-discrimination) or an email to [prathemesh7744@gmail.com](mailto:prathemesh7744@gmail.com).
